@@ -1,0 +1,6 @@
+{
+    "preset": "crockford",
+    "requireMultipleVarDecl": null,
+    "disallowDanglingUnderscores": null,
+    "validateQuoteMarks": "\""
+}

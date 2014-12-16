@@ -1,0 +1,38 @@
+{
+  "name": "traceur-runner",
+  "description": "Runs JavaScript.next code in Node by compiling it with Traceur on the fly, seamlessly",
+  "keywords": [
+    "traceur",
+    "es6",
+    "harmony",
+    "require"
+  ],
+  "version": "1.0.0-pre",
+  "author": "Domenic Denicola <d@domenic.me> (https://domenic.me/)",
+  "license": "WTFPL",
+  "repository": "domenic/traceur-runner",
+  "main": "lib/traceur-runner.js",
+  "bin": "bin/traceur-runner.js",
+  "files": [
+    "bin/",
+    "lib/"
+  ],
+  "scripts": {
+    "test": "mocha test/test.js",
+    "lint": "jshint lib bin && jscs lib bin"
+  },
+  "dependencies": {},
+  "peerDependencies": {
+    "traceur": ">= 0.0.79 < 1"
+  },
+  "devDependencies": {
+    "child-process-promise": "^1.0.0",
+    "jscs": "^1.8.1",
+    "jshint": "^2.5.10",
+    "mocha": "1.21.4",
+    "traceur": "0.0.79"
+  },
+  "_dependencyComments": {
+    "mocha": "keeping at 1.21.4 until https://github.com/mochajs/mocha/issues/1241 is fixed"
+  }
+}
