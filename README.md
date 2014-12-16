@@ -12,6 +12,12 @@ You can use `traceur-runner` as a binary, pointing it at some code that needs tr
 $ traceur-runner my-script.js
 ```
 
+You can also use globs:
+
+```
+$ traceur-runner test/*.js
+```
+
 Or you can use it programmatically: if you do
 
 ```js

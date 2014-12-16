@@ -21,7 +21,9 @@
     "test": "mocha test/test.js",
     "lint": "jshint lib bin && jscs lib bin"
   },
-  "dependencies": {},
+  "dependencies": {
+    "glob": "^4.3.1"
+  },
   "peerDependencies": {
     "traceur": ">= 0.0.79 < 1"
   },

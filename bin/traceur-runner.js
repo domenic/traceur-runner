@@ -1,5 +1,9 @@
 "use strict";
 var path = require("path");
+var glob = require("glob");
 
 require("../lib/traceur-runner.js");
-require(path.resolve(process.cwd(), process.argv[2]));
+
+process.argv.slice(2).forEach(function (filename) {
+    glob.sync(path.resolve(__dirname, filename)).forEach(require);
+});
