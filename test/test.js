@@ -4,31 +4,45 @@ var childProcess = require("child-process-promise");
 var assert = require("assert");
 
 specify("With no dependencies", function () {
-    return execAndTest("no-deps");
+    return execAndTestOK("no-deps");
 });
 
 specify("With local dependencies", function () {
-    return execAndTest("local-deps");
+    return execAndTestOK("local-deps");
 });
 
 specify("With package dependencies", function () {
-    return execAndTest("package-deps");
+    return execAndTestOK("package-deps");
 });
 
 specify("With a global specifier", function () {
-    return execAndTest("*", "ok\nok\nok\n");
+    return execAndTestOK("*-deps", 3);
+});
+
+specify("When throwing an error, should use source maps", function () {
+    return execAndTest("throws-an-error", function (stdout) {
+        assert(stdout.indexOf("throws-an-error.js:6:25") !== -1,
+            "Must contain the correct error line/column in the stack trace. Got:\n\n" + stdout);
+    });
 });
 
 var binFile = path.resolve(__dirname, "..", require("../package.json").bin);
-function execAndTest(testCaseName, desiredOutput) {
-    if (desiredOutput === undefined) {
-        desiredOutput = "ok\n";
-    }
-
+function execAndTest(testCaseName, outputTest) {
     var testFile = path.resolve(__dirname, "cases", testCaseName + ".js");
     return childProcess.exec(process.execPath + " " + binFile + " " + testFile).then(function (res) {
-        assert.strictEqual(String(res.stdout), desiredOutput,
-            "test " + testCaseName + " should output the string \"ok\\n\"");
+        outputTest(String(res.stdout));
         assert.strictEqual(String(res.stderr), "", "test " + testCaseName + " should not output to stderr");
     });
+}
+
+function execAndTestOK(testCaseName, numberOfTimes) {
+    if (numberOfTimes === undefined) {
+        numberOfTimes = 1;
+    }
+    var desiredText = (new Array(numberOfTimes + 1)).join("ok\n");
+
+    execAndTest(function (stdout) {
+        assert.strictEqual(stdout, desiredText, "test " + testCaseName + " should output the string \"" + desiredText
+            + "\"");
+    })
 }

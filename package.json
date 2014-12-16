@@ -22,7 +22,8 @@
     "lint": "jshint lib bin && jscs lib bin"
   },
   "dependencies": {
-    "glob": "^4.3.1"
+    "glob": "^4.3.1",
+    "traceur-source-maps": "^1.0.6"
   },
   "peerDependencies": {
     "traceur": ">= 0.0.79 < 1"
