@@ -28,7 +28,8 @@ specify("When throwing an error, should use source maps", function () {
 
 var binFile = path.resolve(__dirname, "..", require("../package.json").bin);
 function execAndTest(testCaseName, outputTest) {
-    var testFile = path.resolve(__dirname, "cases", testCaseName + ".js");
+    // Use relative paths to the CWD, to test that paths relative to the CWD work.
+    var testFile = path.relative(process.cwd(), path.resolve(__dirname, "cases", testCaseName + ".js"));
     return childProcess.exec(process.execPath + " " + binFile + " " + testFile).then(function (res) {
         outputTest(String(res.stdout));
         assert.strictEqual(String(res.stderr), "", "test " + testCaseName + " should not output to stderr");
@@ -41,8 +42,8 @@ function execAndTestOK(testCaseName, numberOfTimes) {
     }
     var desiredText = (new Array(numberOfTimes + 1)).join("ok\n");
 
-    execAndTest(function (stdout) {
+    return execAndTest(testCaseName, function (stdout) {
         assert.strictEqual(stdout, desiredText, "test " + testCaseName + " should output the string \"" + desiredText
             + "\"");
-    })
+    });
 }
