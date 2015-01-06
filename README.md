@@ -23,7 +23,13 @@ $ traceur-runner test/*.js
 Or you can use it programmatically: if you do
 
 ```js
-require("traceur-runner");
+require("traceur-runner")();
+```
+
+Pass some options to the compiler
+
+```js
+require("traceur-runner")({ asyncFunctions: true });
 ```
 
 in your source file, any further `require`s will be transpiled as appropriate.
