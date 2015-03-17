@@ -30,7 +30,7 @@ var binFile = path.resolve(__dirname, "..", require("../package.json").bin);
 function execAndTest(testCaseName, outputTest) {
     // Use relative paths to the CWD, to test that paths relative to the CWD work.
     var testFile = path.relative(process.cwd(), path.resolve(__dirname, "cases", testCaseName + ".js"));
-    return childProcess.exec(process.execPath + " " + binFile + " " + testFile).then(function (res) {
+    return childProcess.execFile(process.execPath, [binFile, testFile]).then(function (res) {
         outputTest(String(res.stdout));
         assert.strictEqual(String(res.stderr), "", "test " + testCaseName + " should not output to stderr");
     });
