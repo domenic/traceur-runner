@@ -5,6 +5,11 @@ var glob = require("glob");
 
 require("../lib/traceur-runner.js");
 
-process.argv.slice(2).forEach(function (filename) {
-    glob.sync(path.resolve(process.cwd(), filename)).forEach(require);
-});
+var filename = path.resolve(process.cwd(), process.argv[2]);
+
+// Make the args look like ["<...>traceur-runner", "<...>the file", ... args passed]
+// This simulates how when you do `node file.js arg1 arg2` you get ["<...>node", "file.js", "arg1", "arg2"]
+// i.e. it makes traceur-runner a better substitute for node.
+process.argv = process.argv.slice(1);
+
+require(filename);
