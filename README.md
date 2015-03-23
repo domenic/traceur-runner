@@ -25,7 +25,13 @@ If you do this latter, then `my-script.js` will have a `process.argv` such that 
 Finally, you can also use it programmatically: if you do
 
 ```js
-require("traceur-runner");
+require("traceur-runner")();
+```
+
+Pass some options to the compiler
+
+```js
+require("traceur-runner")({ asyncFunctions: true });
 ```
 
 in your source file, any further `require`s will be transpiled as appropriate.
