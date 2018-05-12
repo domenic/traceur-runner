@@ -16,7 +16,7 @@ specify("With package dependencies", function () {
 });
 
 specify("With scoped packages", function () {
-    return execAndTestOK("scoped-dep");
+    return execAndTestOK("scoped-package-deps");
 });
 
 specify("With arguments", function () {
